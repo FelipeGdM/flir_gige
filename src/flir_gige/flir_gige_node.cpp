@@ -10,8 +10,8 @@ void FlirGigeNode::Setup(FlirGigeDynConfig &config) {
 }
 
 void FlirGigeNode::Acquire() {
-  while (is_acquire() && ros::ok()) {
-    const ros::Time time = ros::Time::now();
+  while (is_acquire() && rclcpp::ok()) {
+    const rclcpp::Time time = this->now();
     flir_gige_ros_.PublishCamera(time);
     flir_gige_ros_.PublishTemperature(time);
     Sleep();

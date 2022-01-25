@@ -1,6 +1,7 @@
 #ifndef FLIR_GIGE_H_
 #define FLIR_GIGE_H_
 
+#include <cmath>
 #include <memory>
 
 #include <PvSystem.h>
@@ -13,9 +14,9 @@
 #include <PvBuffer.h>
 #include <PvPipeline.h>
 
-#include <sensor_msgs/Image.h>
-#include <sensor_msgs/CameraInfo.h>
-#include <sensor_msgs/Temperature.h>
+#include <sensor_msgs/msg/image.hpp>
+#include <sensor_msgs/msg/camera_info.hpp>
+#include <sensor_msgs/msg/temperature.hpp>
 #include <flir_gige/FlirGigeDynConfig.h>
 
 #include "flir_gige/planck.h"
@@ -42,9 +43,9 @@ class FlirGige {
   void StartAcquisition();
   void StopAcquisition();
   void Configure(FlirGigeDynConfig &config);
-  bool GrabImage(sensor_msgs::Image &image_msg,
-                 sensor_msgs::CameraInfo &cinfo_msg);
-  bool GrabTemprature(sensor_msgs::Temperature &temp_msg);
+  bool GrabImage(sensor_msgs::msg::Image &image_msg,
+                 sensor_msgs::msg::CameraInfo &cinfo_msg);
+  bool GrabTemprature(sensor_msgs::msg::Temperature &temp_msg);
 
  private:
   using PvDevicePtr = std::unique_ptr<PvDevice, FreeDevice>;

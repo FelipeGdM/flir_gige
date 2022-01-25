@@ -3,19 +3,19 @@
 
 #include "flir_gige/flir_gige.h"
 #include "camera_base/camera_ros_base.h"
-
-#include <sensor_msgs/Temperature.h>
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/temperature.hpp>
 
 namespace flir_gige {
 
 class FlirGigeRos : public camera_base::CameraRosBase {
  public:
-  FlirGigeRos(const ros::NodeHandle& nh)
-      : CameraRosBase(nh),
+  FlirGigeRos(rclcpp::Node& node)
+      : CameraRosBase(node),
         flir_gige_(identifier()),
-        nh_(nh),
-        temp_pub_(nh_.advertise<sensor_msgs::Temperature>("spot", 1)),
-        temp_msg_(new sensor_msgs::Temperature()) {
+        node_(&node),
+        temp_pub_(node.create_publisher<sensor_msgs::msg::Temperature>("spot", 1)),
+        temp_msg_(new sensor_msgs::msg::Temperature()) {
     SetHardwareId(flir_gige_.display_id());
   }
 
@@ -28,16 +28,16 @@ class FlirGigeRos : public camera_base::CameraRosBase {
   }
   void Start() { flir_gige_.StartAcquisition(); }
 
-  virtual bool Grab(const sensor_msgs::ImagePtr& image_msg,
-                    const sensor_msgs::CameraInfoPtr& cinfo_msg) override;
+  virtual bool Grab(const sensor_msgs::msg::Image::Ptr& image_msg,
+                    const sensor_msgs::msg::CameraInfo::Ptr& cinfo_msg) override;
 
-  void PublishTemperature(const ros::Time& time);
+  void PublishTemperature(const rclcpp::Time& time);
 
  private:
   FlirGige flir_gige_;
-  ros::NodeHandle nh_;
-  ros::Publisher temp_pub_;
-  sensor_msgs::TemperaturePtr temp_msg_;
+  rclcpp::Node::SharedPtr node_;
+  rclcpp::Publisher<sensor_msgs::msg::Temperature>::SharedPtr temp_pub_;
+  sensor_msgs::msg::Temperature::Ptr temp_msg_;
 };
 
 }  // namespace flir_gige

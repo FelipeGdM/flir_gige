@@ -1,11 +1,10 @@
 #include "flir_gige/flir_gige.h"
 
 #include <cstdint>
-
 #include <algorithm>
 
-#include <ros/ros.h>
-#include <sensor_msgs/image_encodings.h>
+#include <sensor_msgs/image_encodings.hpp>
+#include <cstring>
 
 #include <PvGenParameterArray.h>
 #include <PvGenParameter.h>
@@ -171,8 +170,8 @@ void FlirGige::CreatePipeline() {
   pipeline_->SetBufferSize(payload_size);
 }
 
-bool FlirGige::GrabImage(sensor_msgs::Image &image_msg,
-                         sensor_msgs::CameraInfo &cinfo_msg) {
+bool FlirGige::GrabImage(sensor_msgs::msg::Image &image_msg,
+                         sensor_msgs::msg::CameraInfo &cinfo_msg) {
   static bool skip_next_frame = false;
 
   // Start loop for acquisition
@@ -182,7 +181,7 @@ bool FlirGige::GrabImage(sensor_msgs::Image &image_msg,
   // Skip next frame when operation is not ok
   if (skip_next_frame) {
     skip_next_frame = false;
-    sleep(1);
+    // sleep(1);
   }
 
   // Retrieve next buffer
@@ -212,10 +211,10 @@ bool FlirGige::GrabImage(sensor_msgs::Image &image_msg,
 
   // Get device parameters need to control streaming
   // Assemble cinfo msg
-  cinfo_msg.R[0] = cache_.B;
-  cinfo_msg.R[1] = cache_.F;
-  cinfo_msg.R[2] = cache_.O;
-  cinfo_msg.R[3] = cache_.R;
+  cinfo_msg.r[0] = cache_.B;
+  cinfo_msg.r[1] = cache_.F;
+  cinfo_msg.r[2] = cache_.O;
+  cinfo_msg.r[3] = cache_.R;
 
   // Assemble image msg
   image_msg.height = cache_.height;
@@ -263,7 +262,7 @@ void FlirGige::CacheParams() {
   cache_.bit = bit;
 }
 
-bool FlirGige::GrabTemprature(sensor_msgs::Temperature &temp_msg) {
+bool FlirGige::GrabTemprature(sensor_msgs::msg::Temperature &temp_msg) {
   temp_msg.variance = 0;
   return param_array_->GetFloatValue("Spot", temp_msg.temperature).IsOK();
 }
