@@ -8,10 +8,9 @@
 
   <license>BSD</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <build_depend>roscpp</build_depend>
-  <build_depend>nodelet</build_depend>
+  <build_depend>builtin_interfaces</build_depend>
   <build_depend>cv_bridge</build_depend>
   <build_depend>camera_base</build_depend>
 
@@ -21,7 +20,7 @@
   <run_depend>camera_base</run_depend>
 
   <export>
-      <nodelet plugin="${prefix}/nodelet_plugins.xml" />
+    <nodelet plugin="${prefix}/nodelet_plugins.xml" />
   </export>
 
 </package>

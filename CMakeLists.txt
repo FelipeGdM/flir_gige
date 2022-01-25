@@ -13,24 +13,24 @@ else()
     message(FATAL_ERROR "This package only supports 64-bit linux")
 endif()
 
-find_package(catkin REQUIRED COMPONENTS
-    roscpp nodelet camera_base cv_bridge
-    )
+# find_package(catkin REQUIRED COMPONENTS
+#     roscpp nodelet camera_base cv_bridge
+#     )
+find_package(ament_cmake REQUIRED)
+find_package(camera_base REQUIRED)
+find_package(cv_bridge REQUIRED)
+
 find_package(OpenCV)
 
 # Dynamic reconfigure option, as to be placed right before catkin_package
-generate_dynamic_reconfigure_options(
-    cfg/FlirGigeDyn.cfg
-    cfg/ThermalProcDyn.cfg
-    cfg/CalibProcDyn.cfg
-    )
+# generate_dynamic_reconfigure_options(
+#     cfg/FlirGigeDyn.cfg
+#     cfg/ThermalProcDyn.cfg
+#     cfg/CalibProcDyn.cfg
+#     )
 
-catkin_package(
-    #  INCLUDE_DIRS include
-    #  LIBRARIES flir
-    #  CATKIN_DEPENDS roscpp sensor_msgs
-    #  DEPENDS system_lib
-    )
+# Instead of catkin_package
+ament_package()
 
 include_directories(
     include
@@ -76,9 +76,9 @@ target_link_libraries(calib_proc_node
     )
 
 ## Add cmake target dependencies of the executable/library
-add_dependencies(${PROJECT_NAME}
-    ${catkin_EXPORTED_TARGETS}
-    ${PROJECT_NAME}_gencfg
-    ${PROJECT_NAME}_gencpp
-    ${${PROJECT_NAME}_EXPORTED_TARGETS}
-    )
+# add_dependencies(${PROJECT_NAME}
+    # ${catkin_EXPORTED_TARGETS}
+    # ${PROJECT_NAME}_gencfg
+    # ${PROJECT_NAME}_gencpp
+    # ${${PROJECT_NAME}_EXPORTED_TARGETS}
+    # )
