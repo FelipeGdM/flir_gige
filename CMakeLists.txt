@@ -18,8 +18,14 @@ endif()
 #     roscpp nodelet camera_base cv_bridge
 #     )
 find_package(ament_cmake REQUIRED)
-find_package(camera_base REQUIRED)
 find_package(cv_bridge REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(diagnostic_msgs REQUIRED)
+find_package(camera_info_manager REQUIRED)
+find_package(image_transport REQUIRED)
 
 find_package(OpenCV)
 
@@ -30,12 +36,8 @@ find_package(OpenCV)
 #     cfg/CalibProcDyn.cfg
 #     )
 
-# Instead of catkin_package
-ament_package()
-
 include_directories(
     include
-    ${catkin_INCLUDE_DIRS}
     ${Ebus_INCLUDE_DIRS}
     ${OpenCV_INCLUDE_DIRS}
     )
@@ -50,11 +52,19 @@ add_library(${PROJECT_NAME}
     src/thermal_proc/thermal_proc_nodelet.cpp
     src/calib_proc/calib_proc_node.cpp
     )
+
 target_link_libraries(${PROJECT_NAME}
-    ${catkin_LIBRARIES}
     ${OpenCV_LIBRARIES}
     ${Ebus_LIBRARIES}
     )
+
+ament_target_dependencies(${PROJECT_NAME}
+    rclcpp
+    sensor_msgs
+    diagnostic_msgs
+    camera_info_manager
+    image_transport
+)
 
 # node
 add_executable(${PROJECT_NAME}_node
@@ -63,18 +73,17 @@ add_executable(${PROJECT_NAME}_node
 target_link_libraries(${PROJECT_NAME}_node
     ${PROJECT_NAME}
     )
-add_executable(thermal_proc_node
-    src/thermal_proc/thermal_proc_main.cpp
+install(TARGETS ${PROJECT_NAME}_node
+    DESTINATION lib/${PROJECT_NAME})
+
+ament_export_dependencies(camera_info_manager
+    diagnostic_updater
+    image_transport
+    builtin_interfaces
     )
-target_link_libraries(thermal_proc_node
-    ${PROJECT_NAME}
-    )
-add_executable(calib_proc_node
-    src/calib_proc/calib_proc_main.cpp
-    )
-target_link_libraries(calib_proc_node
-    ${PROJECT_NAME}
-    )
+
+# Instead of catkin_package
+ament_package()
 
 ## Add cmake target dependencies of the executable/library
 # add_dependencies(${PROJECT_NAME}
