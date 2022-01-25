@@ -40,17 +40,17 @@ include_directories(
     include
     ${Ebus_INCLUDE_DIRS}
     ${OpenCV_INCLUDE_DIRS}
-    )
+)
 
 # library
 add_library(${PROJECT_NAME}
     src/flir_gige/flir_gige.cpp
     src/flir_gige/flir_gige_ros.cpp
     src/flir_gige/flir_gige_node.cpp
-    src/flir_gige/flir_gige_nodelet.cpp
-    src/thermal_proc/thermal_proc_node.cpp
-    src/thermal_proc/thermal_proc_nodelet.cpp
-    src/calib_proc/calib_proc_node.cpp
+    # src/flir_gige/flir_gige_nodelet.cpp
+    # src/thermal_proc/thermal_proc_node.cpp
+    # src/thermal_proc/thermal_proc_nodelet.cpp
+    # src/calib_proc/calib_proc_node.cpp
     )
 
 target_link_libraries(${PROJECT_NAME}
@@ -73,6 +73,20 @@ add_executable(${PROJECT_NAME}_node
 target_link_libraries(${PROJECT_NAME}_node
     ${PROJECT_NAME}
     )
+
+# add_executable(thermal_proc_node
+#     src/thermal_proc/thermal_proc_main.cpp
+#     )
+# target_link_libraries(thermal_proc_node
+#     ${PROJECT_NAME}
+#     )
+# add_executable(calib_proc_node
+#     src/calib_proc/calib_proc_main.cpp
+#     )
+# target_link_libraries(calib_proc_node
+#     ${PROJECT_NAME}
+#     )
+
 install(TARGETS ${PROJECT_NAME}_node
     DESTINATION lib/${PROJECT_NAME})
 
@@ -80,7 +94,7 @@ ament_export_dependencies(camera_info_manager
     diagnostic_updater
     image_transport
     builtin_interfaces
-    )
+)
 
 # Instead of catkin_package
 ament_package()
