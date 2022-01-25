@@ -20,9 +20,8 @@ namespace camera_base {
  * @param name Parameter name
  * @return Parameter value
  */
-template <typename T>
-T getParam(rclcpp::Node::SharedPtr node, const std::string& name) {
-  T value{};
+inline rclcpp::Parameter getParam(rclcpp::Node::SharedPtr node, const std::string& name) {
+  rclcpp::Parameter value{};
   if (!node->get_parameter(name, value)) {
     RCLCPP_ERROR(node->get_logger(), "Cannot find parameter: %s", name.c_str());
   }
@@ -40,8 +39,6 @@ class CameraRosBase {
       : node_(&node),
         it_(node_),
         camera_pub_(it_.advertiseCamera("image_raw", 1)),
-        cinfo_mgr_(node_.get(), getParam<std::string>(node_, "camera_name"),
-                   getParam<std::string>(node_, "calib_url")),
         fps_(10.0),
         diagnostic_updater_(node_),
         topic_diagnostic_(
@@ -49,6 +46,14 @@ class CameraRosBase {
             diagnostic_updater_,
             diagnostic_updater::FrequencyStatusParam(&fps_, &fps_, 0.1, 10),
             diagnostic_updater::TimeStampStatusParam(-0.01, 0.1)) {
+
+    node_->declare_parameter<std::string>("camera_name", "default_camera_name");
+    node_->declare_parameter<std::string>("calib_url", "default_calib_url");
+
+    cinfo_mgr_ = std::make_unique<camera_info_manager::CameraInfoManager>(
+      node_.get(),
+      getParam(node_, "camera_name").value_to_string(),
+      getParam(node_, "calib_url").value_to_string());
 
     rclcpp::Parameter frame_id_par_, identifier_par_;
 
@@ -85,7 +90,7 @@ class CameraRosBase {
   void PublishCamera(const rclcpp::Time& time) {
     const auto image_msg = std::make_shared<sensor_msgs::msg::Image>();
     const auto cinfo_msg =
-        std::make_shared<sensor_msgs::msg::CameraInfo>(cinfo_mgr_.getCameraInfo());
+        std::make_shared<sensor_msgs::msg::CameraInfo>(cinfo_mgr_->getCameraInfo());
     image_msg->header.frame_id = frame_id_;
     image_msg->header.stamp = time;
     if (Grab(image_msg, cinfo_msg)) {
@@ -101,7 +106,7 @@ class CameraRosBase {
 
   void Publish(const sensor_msgs::msg::Image::Ptr& image_msg) {
     const auto cinfo_msg =
-        std::make_shared<sensor_msgs::msg::CameraInfo>(cinfo_mgr_.getCameraInfo());
+        std::make_shared<sensor_msgs::msg::CameraInfo>(cinfo_mgr_->getCameraInfo());
     // Update camera info header
     image_msg->header.frame_id = frame_id_;
     cinfo_msg->header = image_msg->header;
@@ -124,7 +129,7 @@ class CameraRosBase {
   rclcpp::Node::SharedPtr node_;
   image_transport::ImageTransport it_;
   image_transport::CameraPublisher camera_pub_;
-  camera_info_manager::CameraInfoManager cinfo_mgr_;
+  std::unique_ptr<camera_info_manager::CameraInfoManager> cinfo_mgr_;
   double fps_;
   diagnostic_updater::Updater diagnostic_updater_;
   diagnostic_updater::TopicDiagnostic topic_diagnostic_;
