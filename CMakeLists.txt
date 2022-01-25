@@ -10,6 +10,7 @@ set(Ebus_INCLUDE_DIR /opt/pleora/ebus_sdk/Ubuntu-14.04-x86_64/include)
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     # Make CMake aware of the cmake folder for local FindXXX scripts.
     set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+    set(Ebus_HINTS /opt/pleora/ebus_sdk/Ubuntu-14.04-x86_64)
     find_package(Ebus REQUIRED)
 else()
     message(FATAL_ERROR "This package only supports 64-bit linux")
