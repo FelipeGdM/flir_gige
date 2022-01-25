@@ -3,6 +3,8 @@ project(flir_gige)
 
 add_definitions(-std=c++14 -Wall -Wno-unknown-pragmas)
 
+set(Ebus_INCLUDE_DIR /opt/pleora/ebus_sdk/Ubuntu-14.04-x86_64/include)
+
 # Set library paths for pleora ebus sdk on 64-bit linux
 # For more information, see cmake/Findebus.cmake
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
