@@ -18,4 +18,8 @@ void FlirGigeNode::Acquire() {
   }
 }
 
+void FlirGigeNode::spin() {
+  // Do stuff
+}
+
 }  // namespace flir_gige
