@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(flir_gige)
 
-add_definitions(-std=c++11 -Wall -Wno-unknown-pragmas)
+add_definitions(-std=c++14 -Wall -Wno-unknown-pragmas)
 
 # Set library paths for pleora ebus sdk on 64-bit linux
 # For more information, see cmake/Findebus.cmake
