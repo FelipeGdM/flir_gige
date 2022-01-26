@@ -1,0 +1,4 @@
+flir_camera_node:
+  ros__parameters:
+    calib_url: "localhost"
+    camera_name: "Jorge"
