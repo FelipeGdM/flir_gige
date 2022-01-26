@@ -121,6 +121,11 @@ bool FlirGige::FindDevice(const std::string &ip,
 
 std::string FlirGige::AvailableDevice(
     const PvDeviceInfoGEVVec &dinfo_gev_vec) const {
+
+  if(dinfo_gev_vec.empty()){
+    return "<empty>";
+  }
+
   std::string devices;
   for (const PvDeviceInfoGEV *dinfo : dinfo_gev_vec) {
     devices += dinfo->GetIPAddress().GetAscii() + std::string(" ");
