@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(flir_gige)
 
+# set(CMAKE_BUILD_TYPE Debug)
 add_definitions(-std=c++14 -Wall -Wno-deprecated-declarations -Wextra -Wno-unknown-pragmas)
 
 # Set library paths for pleora ebus sdk on 64-bit linux
