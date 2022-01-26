@@ -55,7 +55,7 @@ class CameraNodeBase : public rclcpp::Node{
    */
   void ConfigCb(ConfigType& config, int level) {
     if (level < 0) {
-      ROS_INFO("%s: %s", this->getNamespace().c_str(),
+      RCLCPP_INFO(this->get_logger(), "%s: %s", this->get_namespace(),
                "Initializing reconfigure server");
     }
     if (is_acquire()) {
