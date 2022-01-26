@@ -34,9 +34,9 @@ inline rclcpp::Parameter getParam(rclcpp::Node::SharedPtr node, const std::strin
  */
 class CameraRosBase {
  public:
-  explicit CameraRosBase(rclcpp::Node& node,
+  explicit CameraRosBase(rclcpp::Node::SharedPtr node,
                          const std::string& prefix = std::string())
-      : node_(&node),
+      : node_(node),
         it_(node_),
         camera_pub_(it_.advertiseCamera("image_raw", 1)),
         fps_(10.0),

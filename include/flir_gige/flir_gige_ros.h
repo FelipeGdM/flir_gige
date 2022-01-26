@@ -10,12 +10,10 @@ namespace flir_gige {
 
 class FlirGigeRos : public camera_base::CameraRosBase {
  public:
-  FlirGigeRos(rclcpp::Node& node)
+  FlirGigeRos(rclcpp::Node::SharedPtr node)
       : CameraRosBase(node),
         flir_gige_(identifier()),
-        node_(&node),
-        temp_pub_(node.create_publisher<sensor_msgs::msg::Temperature>("spot", 1)),
-        temp_msg_(new sensor_msgs::msg::Temperature()) {
+        node_(node),
     SetHardwareId(flir_gige_.display_id());
   }
 
