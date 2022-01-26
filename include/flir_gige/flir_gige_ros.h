@@ -14,6 +14,9 @@ class FlirGigeRos : public camera_base::CameraRosBase {
       : CameraRosBase(node),
         flir_gige_(identifier()),
         node_(node),
+        temp_pub_(node->create_publisher<sensor_msgs::msg::Temperature>("spot", 1)),
+        temp_msg_(sensor_msgs::msg::Temperature())
+        {
     SetHardwareId(flir_gige_.display_id());
   }
 
@@ -35,7 +38,7 @@ class FlirGigeRos : public camera_base::CameraRosBase {
   FlirGige flir_gige_;
   rclcpp::Node::SharedPtr node_;
   rclcpp::Publisher<sensor_msgs::msg::Temperature>::SharedPtr temp_pub_;
-  sensor_msgs::msg::Temperature::Ptr temp_msg_;
+  sensor_msgs::msg::Temperature temp_msg_;
 };
 
 }  // namespace flir_gige
