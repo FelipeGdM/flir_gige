@@ -15,20 +15,6 @@
 namespace camera_base {
 
 /**
- * @brief getParam Util function for getting ros parameters under nodehandle
- * @param nh Node handle
- * @param name Parameter name
- * @return Parameter value
- */
-inline rclcpp::Parameter getParam(rclcpp::Node::SharedPtr node, const std::string& name) {
-  rclcpp::Parameter value{};
-  if (!node->get_parameter(name, value)) {
-    RCLCPP_ERROR(node->get_logger(), "Cannot find parameter: %s", name.c_str());
-  }
-  return value;
-}
-
-/**
  * @brief The CameraRosBase class
  * This class implements a ros camera
  */
@@ -54,19 +40,11 @@ class CameraRosBase {
 
     cinfo_mgr_ = std::make_unique<camera_info_manager::CameraInfoManager>(
       node_.get(),
-      getParam(node_, "camera_name").value_to_string(),
-      getParam(node_, "calib_url").value_to_string());
+      node_->get_parameter("camera_name").value_to_string(),
+      node_->get_parameter("calib_url").value_to_string());
 
-    rclcpp::Parameter frame_id_par_, identifier_par_;
-
-    // FIXME Hardcoded frame_id
-    node_->get_parameter("frame_id", frame_id_par_);
-
-    // FIXME Hardcoded camera ip address
-    node_->get_parameter("identifier", identifier_par_);
-
-    frame_id_ = frame_id_par_.value_to_string();
-    identifier_ = identifier_par_.value_to_string();
+    frame_id_ = node_->get_parameter("frame_id").value_to_string();
+    identifier_ = node_->get_parameter("identifier").value_to_string();
   }
 
   CameraRosBase() = delete;
