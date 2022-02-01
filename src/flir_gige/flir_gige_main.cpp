@@ -14,6 +14,7 @@ int main(int argc, char **argv) {
 
   std::shared_ptr<flir_gige::FlirGigeNode> main_node =
       std::make_shared<flir_gige::FlirGigeNode>();
+
   try {
     main_node->Init();
 

@@ -14,19 +14,14 @@ namespace flir_gige {
 
 class FlirGigeNode : public camera_base::CameraNodeBase<FlirGigeDynConfig> {
  public:
-  FlirGigeNode()
-      : CameraNodeBase(),
-        timer_(this->create_wall_timer(500ms,
-                                       std::bind(&FlirGigeNode::spin, this))){};
+  FlirGigeNode() : CameraNodeBase(){};
 
   void Init();
 
   virtual void Acquire() override;
   virtual void Setup(FlirGigeDynConfig &config) override;
-  void spin();
 
  private:
-  rclcpp::TimerBase::SharedPtr timer_;
   std::shared_ptr<FlirGigeRos> flir_gige_ros_;
 };
 
