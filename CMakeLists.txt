@@ -48,7 +48,6 @@ add_library(${PROJECT_NAME}
     src/flir_gige/flir_gige.cpp
     src/flir_gige/flir_gige_ros.cpp
     src/flir_gige/flir_gige_node.cpp
-    # src/flir_gige/flir_gige_nodelet.cpp
     # src/thermal_proc/thermal_proc_node.cpp
     # src/thermal_proc/thermal_proc_nodelet.cpp
     # src/calib_proc/calib_proc_node.cpp
