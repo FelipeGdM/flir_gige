@@ -8,8 +8,7 @@ int main(int argc, char **argv) {
   try {
     flir_gige::CalibProcNode calib_proc_node(nh, pnh);
     ros::spin();
-  }
-  catch (const std::exception &e) {
+  } catch (const std::exception &e) {
     ROS_ERROR("%s: %s", nh.getNamespace().c_str(), e.what());
   }
 }

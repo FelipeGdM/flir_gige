@@ -1,9 +1,8 @@
 #pragma once
 
-
 #include <memory>
-#include <thread>
 #include <rclcpp/rclcpp.hpp>
+#include <thread>
 
 #include "camera_base/camera_ros_base.h"
 
@@ -14,11 +13,9 @@ namespace camera_base {
  * A base class that implements a ros node for a camera
  */
 template <typename ConfigType>
-class CameraNodeBase : public rclcpp::Node{
+class CameraNodeBase : public rclcpp::Node {
  public:
-  CameraNodeBase()
-      : Node("flir_camera_node"),
-      is_acquire_(false) {}
+  CameraNodeBase() : Node("flir_camera_node"), is_acquire_(false) {}
 
   // CameraNodeBase() = delete;
   CameraNodeBase(const CameraNodeBase&) = delete;
@@ -56,7 +53,7 @@ class CameraNodeBase : public rclcpp::Node{
   void ConfigCb(ConfigType& config, int level) {
     if (level < 0) {
       RCLCPP_INFO(this->get_logger(), "%s: %s", this->get_namespace(),
-               "Initializing reconfigure server");
+                  "Initializing reconfigure server");
     }
     if (is_acquire()) {
       Stop();

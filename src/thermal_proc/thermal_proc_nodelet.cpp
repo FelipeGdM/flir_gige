@@ -17,8 +17,7 @@ class ThermalProcNodelet : public nodelet::Nodelet {
     try {
       thermal_proc_node_.reset(
           new ThermalProcNode(getPrivateNodeHandle(), getPrivateNodeHandle()));
-    }
-    catch (const std::exception &e) {
+    } catch (const std::exception &e) {
       NODELET_ERROR("%s: %s", getPrivateNodeHandle().getNamespace().c_str(),
                     e.what());
     }

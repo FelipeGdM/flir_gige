@@ -3,9 +3,9 @@
 
 #include <cstdint>
 
-typedef struct{
+typedef struct {
   int celsius_min;
   int celsius_max;
 } ThermalProcDynConfig;
 
-#endif // __THERMAL_PROC_DYN_GONFIG_H__
+#endif  // __THERMAL_PROC_DYN_GONFIG_H__

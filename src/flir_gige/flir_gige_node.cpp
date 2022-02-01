@@ -22,8 +22,6 @@ void FlirGigeNode::Acquire() {
   }
 }
 
-void FlirGigeNode::spin() {
-  RCLCPP_INFO(this->get_logger(), "Called spin()");
-}
+void FlirGigeNode::spin() { RCLCPP_INFO(this->get_logger(), "Called spin()"); }
 
 }  // namespace flir_gige

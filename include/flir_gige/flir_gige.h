@@ -4,20 +4,20 @@
 #include <cmath>
 #include <memory>
 
-#include <PvSystem.h>
+#include <PvBuffer.h>
 #include <PvDevice.h>
 #include <PvDeviceGEV.h>
 #include <PvDeviceU3V.h>
+#include <PvPipeline.h>
 #include <PvStream.h>
 #include <PvStreamGEV.h>
 #include <PvStreamU3V.h>
-#include <PvBuffer.h>
-#include <PvPipeline.h>
+#include <PvSystem.h>
 
-#include <sensor_msgs/msg/image.hpp>
-#include <sensor_msgs/msg/camera_info.hpp>
-#include <sensor_msgs/msg/temperature.hpp>
 #include <flir_gige/FlirGigeDynConfig.h>
+#include <sensor_msgs/msg/camera_info.hpp>
+#include <sensor_msgs/msg/image.hpp>
+#include <sensor_msgs/msg/temperature.hpp>
 
 #include "flir_gige/planck.h"
 
@@ -67,7 +67,7 @@ class FlirGige {
   void SetAoi(int *width, int *height) const;
   void SetPixelFormat(bool raw) const;
   void SetNucMode(int nuc) const;
-  void DoNuc(bool& nuc) const;
+  void DoNuc(bool &nuc) const;
 
   //  double GetSpotPixel(const cv::Mat &image) const;
 

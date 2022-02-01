@@ -1,10 +1,10 @@
 #ifndef FLIR_GIGE_ROS_H_
 #define FLIR_GIGE_ROS_H_
 
-#include "flir_gige/flir_gige.h"
-#include "camera_base/camera_ros_base.h"
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/temperature.hpp>
+#include "camera_base/camera_ros_base.h"
+#include "flir_gige/flir_gige.h"
 
 namespace flir_gige {
 
@@ -14,9 +14,9 @@ class FlirGigeRos : public camera_base::CameraRosBase {
       : CameraRosBase(node),
         flir_gige_(identifier()),
         node_(node),
-        temp_pub_(node->create_publisher<sensor_msgs::msg::Temperature>("spot", 1)),
-        temp_msg_(sensor_msgs::msg::Temperature())
-        {
+        temp_pub_(
+            node->create_publisher<sensor_msgs::msg::Temperature>("spot", 1)),
+        temp_msg_(sensor_msgs::msg::Temperature()) {
     SetHardwareId(flir_gige_.display_id());
   }
 
@@ -29,8 +29,9 @@ class FlirGigeRos : public camera_base::CameraRosBase {
   }
   void Start() { flir_gige_.StartAcquisition(); }
 
-  virtual bool Grab(const sensor_msgs::msg::Image::Ptr& image_msg,
-                    const sensor_msgs::msg::CameraInfo::Ptr& cinfo_msg) override;
+  virtual bool Grab(
+      const sensor_msgs::msg::Image::Ptr& image_msg,
+      const sensor_msgs::msg::CameraInfo::Ptr& cinfo_msg) override;
 
   void PublishTemperature(const rclcpp::Time& time);
 

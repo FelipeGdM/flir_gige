@@ -1,9 +1,9 @@
 #ifndef FLIR_GIGE_NODE_H_
 #define FLIR_GIGE_NODE_H_
 
-#include "flir_gige/flir_gige_ros.h"
-#include "flir_gige/FlirGigeDynConfig.h"
 #include "camera_base/camera_node_base.h"
+#include "flir_gige/FlirGigeDynConfig.h"
+#include "flir_gige/flir_gige_ros.h"
 
 #include <chrono>
 #include <functional>
@@ -15,8 +15,9 @@ namespace flir_gige {
 class FlirGigeNode : public camera_base::CameraNodeBase<FlirGigeDynConfig> {
  public:
   FlirGigeNode()
-    : CameraNodeBase(),
-    timer_(this->create_wall_timer(500ms, std::bind(&FlirGigeNode::spin, this))){};
+      : CameraNodeBase(),
+        timer_(this->create_wall_timer(500ms,
+                                       std::bind(&FlirGigeNode::spin, this))){};
 
   void Init();
 

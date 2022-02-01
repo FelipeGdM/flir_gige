@@ -32,16 +32,14 @@ class CameraRosBase {
             diagnostic_updater_,
             diagnostic_updater::FrequencyStatusParam(&fps_, &fps_, 0.1, 10),
             diagnostic_updater::TimeStampStatusParam(-0.01, 0.1)) {
-
     node_->declare_parameter<std::string>("camera_name", "flir_ax5");
     node_->declare_parameter<std::string>("calib_url", "");
     node_->declare_parameter<std::string>("frame_id", "thermal");
     node_->declare_parameter<std::string>("identifier", "172.16.20.23");
 
     cinfo_mgr_ = std::make_unique<camera_info_manager::CameraInfoManager>(
-      node_.get(),
-      node_->get_parameter("camera_name").value_to_string(),
-      node_->get_parameter("calib_url").value_to_string());
+        node_.get(), node_->get_parameter("camera_name").value_to_string(),
+        node_->get_parameter("calib_url").value_to_string());
 
     frame_id_ = node_->get_parameter("frame_id").value_to_string();
     identifier_ = node_->get_parameter("identifier").value_to_string();
@@ -72,8 +70,8 @@ class CameraRosBase {
    */
   void PublishCamera(const rclcpp::Time& time) {
     const auto image_msg = std::make_shared<sensor_msgs::msg::Image>();
-    const auto cinfo_msg =
-        std::make_shared<sensor_msgs::msg::CameraInfo>(cinfo_mgr_->getCameraInfo());
+    const auto cinfo_msg = std::make_shared<sensor_msgs::msg::CameraInfo>(
+        cinfo_mgr_->getCameraInfo());
     image_msg->header.frame_id = frame_id_;
     image_msg->header.stamp = time;
     if (Grab(image_msg, cinfo_msg)) {
@@ -88,8 +86,8 @@ class CameraRosBase {
   }
 
   void Publish(const sensor_msgs::msg::Image::Ptr& image_msg) {
-    const auto cinfo_msg =
-        std::make_shared<sensor_msgs::msg::CameraInfo>(cinfo_mgr_->getCameraInfo());
+    const auto cinfo_msg = std::make_shared<sensor_msgs::msg::CameraInfo>(
+        cinfo_mgr_->getCameraInfo());
     // Update camera info header
     image_msg->header.frame_id = frame_id_;
     cinfo_msg->header = image_msg->header;
@@ -105,8 +103,9 @@ class CameraRosBase {
    * @param image_msg Ros message ImagePtr
    * @return True if successful
    */
-  virtual bool Grab(const sensor_msgs::msg::Image::Ptr& image_msg,
-                    const sensor_msgs::msg::CameraInfo::Ptr& cinfo_msgs = nullptr) = 0;
+  virtual bool Grab(
+      const sensor_msgs::msg::Image::Ptr& image_msg,
+      const sensor_msgs::msg::CameraInfo::Ptr& cinfo_msgs = nullptr) = 0;
 
  private:
   rclcpp::Node::SharedPtr node_;

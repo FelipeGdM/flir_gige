@@ -1,13 +1,13 @@
 #include "flir_gige/flir_gige.h"
 
-#include <cstdint>
 #include <algorithm>
+#include <cstdint>
 
-#include <sensor_msgs/image_encodings.hpp>
 #include <cstring>
+#include <sensor_msgs/image_encodings.hpp>
 
-#include <PvGenParameterArray.h>
 #include <PvGenParameter.h>
+#include <PvGenParameterArray.h>
 
 namespace flir_gige {
 
@@ -99,8 +99,8 @@ bool FlirGige::FindDevice(const std::string &ip,
   // Try finding the device with the correct ip address
   const auto it = std::find_if(dinfo_gev_vec.cbegin(), dinfo_gev_vec.cend(),
                                [&ip](const PvDeviceInfoGEV *dinfo) {
-    return ip == dinfo->GetIPAddress().GetAscii();
-  });
+                                 return ip == dinfo->GetIPAddress().GetAscii();
+                               });
 
   if (it == dinfo_gev_vec.end()) return false;
   // Found device with given ip address
@@ -121,8 +121,7 @@ bool FlirGige::FindDevice(const std::string &ip,
 
 std::string FlirGige::AvailableDevice(
     const PvDeviceInfoGEVVec &dinfo_gev_vec) const {
-
-  if(dinfo_gev_vec.empty()){
+  if (dinfo_gev_vec.empty()) {
     return "<empty>";
   }
 

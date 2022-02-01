@@ -4,20 +4,20 @@
 #include <cstdint>
 #include <mutex>
 
-#include <ros/ros.h>
 #include <cv_bridge/cv_bridge.h>
+#include <dynamic_reconfigure/server.h>
 #include <image_transport/image_transport.h>
+#include <ros/ros.h>
+#include <sensor_msgs/CameraInfo.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
-#include <sensor_msgs/CameraInfo.h>
-#include <dynamic_reconfigure/server.h>
 
 #include <opencv2/core/core.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 
-#include "flir_gige/planck.h"
 #include "flir_gige/ThermalProcDynConfig.h"
+#include "flir_gige/planck.h"
 
 namespace flir_gige {
 

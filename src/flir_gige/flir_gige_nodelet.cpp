@@ -18,8 +18,7 @@ class FlirGigeNodelet : public nodelet::Nodelet {
     try {
       flir_gige_node_.reset(new FlirGigeNode(getPrivateNodeHandle()));
       flir_gige_node_->Run();
-    }
-    catch (const std::exception &e) {
+    } catch (const std::exception &e) {
       NODELET_ERROR("%s: %s", getPrivateNodeHandle().getNamespace().c_str(),
                     e.what());
     }

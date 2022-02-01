@@ -3,11 +3,11 @@
 
 #include <mutex>
 
-#include <ros/ros.h>
-#include <sensor_msgs/Image.h>
-#include <image_transport/image_transport.h>
 #include <dynamic_reconfigure/server.h>
 #include <flir_gige/CalibProcDynConfig.h>
+#include <image_transport/image_transport.h>
+#include <ros/ros.h>
+#include <sensor_msgs/Image.h>
 
 #include <opencv2/core/core.hpp>
 
