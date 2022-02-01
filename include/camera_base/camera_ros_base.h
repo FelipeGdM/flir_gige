@@ -47,8 +47,10 @@ class CameraRosBase {
             diagnostic_updater::FrequencyStatusParam(&fps_, &fps_, 0.1, 10),
             diagnostic_updater::TimeStampStatusParam(-0.01, 0.1)) {
 
-    node_->declare_parameter<std::string>("camera_name", "default_camera_name");
-    node_->declare_parameter<std::string>("calib_url", "default_calib_url");
+    node_->declare_parameter<std::string>("camera_name", "flir_ax5");
+    node_->declare_parameter<std::string>("calib_url", "");
+    node_->declare_parameter<std::string>("frame_id", "thermal");
+    node_->declare_parameter<std::string>("identifier", "172.16.20.23");
 
     cinfo_mgr_ = std::make_unique<camera_info_manager::CameraInfoManager>(
       node_.get(),
@@ -58,10 +60,10 @@ class CameraRosBase {
     rclcpp::Parameter frame_id_par_, identifier_par_;
 
     // FIXME Hardcoded frame_id
-    node_->get_parameter_or("frame_id", frame_id_par_, rclcpp::Parameter("frame_id", "thermal"));
+    node_->get_parameter("frame_id", frame_id_par_);
 
     // FIXME Hardcoded camera ip address
-    node_->get_parameter_or("identifier", identifier_par_, rclcpp::Parameter("identifier", "172.16.20.23"));
+    node_->get_parameter("identifier", identifier_par_);
 
     frame_id_ = frame_id_par_.value_to_string();
     identifier_ = identifier_par_.value_to_string();
