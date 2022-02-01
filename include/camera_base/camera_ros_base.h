@@ -61,7 +61,7 @@ class CameraRosBase {
     node_->get_parameter_or("frame_id", frame_id_par_, rclcpp::Parameter("frame_id", "thermal"));
 
     // FIXME Hardcoded camera ip address
-    node_->get_parameter_or("identifier", identifier_par_, rclcpp::Parameter("identifier", "172.16.20.238"));
+    node_->get_parameter_or("identifier", identifier_par_, rclcpp::Parameter("identifier", "172.16.20.23"));
 
     frame_id_ = frame_id_par_.value_to_string();
     identifier_ = identifier_par_.value_to_string();
