@@ -1,4 +1,4 @@
-#include "flir_gige/flir_gige_node.h"
+#include "flir_gige/flir_gige_node.hpp"
 
 #include <rclcpp/rclcpp.hpp>
 

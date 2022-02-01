@@ -1,9 +1,9 @@
 #ifndef FLIR_GIGE_NODE_H_
 #define FLIR_GIGE_NODE_H_
 
-#include "camera_base/camera_node_base.h"
-#include "flir_gige/FlirGigeDynConfig.h"
-#include "flir_gige/flir_gige_ros.h"
+#include "camera_base/camera_node_base.hpp"
+#include "flir_gige/FlirGigeDynConfig.hpp"
+#include "flir_gige/flir_gige_ros.hpp"
 
 #include <chrono>
 #include <functional>

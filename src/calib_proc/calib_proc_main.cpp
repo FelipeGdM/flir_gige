@@ -1,4 +1,4 @@
-#include "calib_proc/calib_proc_node.h"
+#include "calib_proc/calib_proc_node.hpp"
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, "calib_proc");

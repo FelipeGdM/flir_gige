@@ -3,8 +3,8 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/temperature.hpp>
-#include "camera_base/camera_ros_base.h"
-#include "flir_gige/flir_gige.h"
+#include "camera_base/camera_ros_base.hpp"
+#include "flir_gige/flir_gige.hpp"
 
 namespace flir_gige {
 

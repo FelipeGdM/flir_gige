@@ -1,4 +1,4 @@
-#include "flir_gige/flir_gige.h"
+#include "flir_gige/flir_gige.hpp"
 
 #include <algorithm>
 #include <cstdint>

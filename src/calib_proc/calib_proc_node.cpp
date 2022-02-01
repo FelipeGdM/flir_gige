@@ -1,4 +1,4 @@
-#include "calib_proc/calib_proc_node.h"
+#include "calib_proc/calib_proc_node.hpp"
 
 #include <cv_bridge/cv_bridge.h>
 #include <opencv2/calib3d/calib3d.hpp>

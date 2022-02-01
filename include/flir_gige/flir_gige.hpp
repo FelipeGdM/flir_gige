@@ -14,12 +14,12 @@
 #include <PvStreamU3V.h>
 #include <PvSystem.h>
 
-#include <flir_gige/FlirGigeDynConfig.h>
+#include <flir_gige/FlirGigeDynConfig.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <sensor_msgs/msg/temperature.hpp>
 
-#include "flir_gige/planck.h"
+#include "flir_gige/planck.hpp"
 
 namespace flir_gige {
 

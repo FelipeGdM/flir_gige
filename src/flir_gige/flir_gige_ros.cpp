@@ -1,4 +1,4 @@
-#include "flir_gige/flir_gige_ros.h"
+#include "flir_gige/flir_gige_ros.hpp"
 
 namespace flir_gige {
 
