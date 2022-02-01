@@ -1,4 +1,6 @@
 flir_camera_node:
   ros__parameters:
-    calib_url: "localhost"
-    camera_name: "Jorge"
+    calib_url: ""
+    camera_name: flir_ax5
+    frame_id: thermal
+    identifier: 172.16.20.23
